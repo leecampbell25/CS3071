@@ -1,29 +1,33 @@
-/* Companion source code for "flex & bison", published by O'Reilly
- * Media, ISBN 978-0-596-15597-1
- * Copyright (c) 2009, Taughannock Networks. All rights reserved.
- * See the README file for license conditions and contact info.
- * $Header: /home/johnl/flnb/code/RCS/fb1-1.l,v 2.1 2009/11/08 02:53:18 johnl Exp $
+/* CS3071 Assignment 1
+* Write a flex program even.l which takes a sequence of integers
+* as its input and outputs a count of the number of even integers
+* and no other characters. Note put return 0; at end of the main function
+* as codemark regards non zero exit status as an error.
+*
+* Lee Campbell - JS Integrated Computer Science 2018
+* campbel2@tcd.ie
+*
  */
 
-/* fb1-1 just like unix wc */
-
-
-/* Rules */
+/* Defintions */
 %{
     int evenInts = 0;
     int i;
 %}
 
+/* Rules */
 %%
 
 [0-9]+	{i=atoi(yytext); if(i%2==0) evenInts++;};
 \n		{}
 .		{}
+
+/*User code*/
 %%
 
 int main()
 {
   yylex();
-  printf("%i\n",evenInts);
+  printf("%i\n", evenInts);
 	return 0;
 }
