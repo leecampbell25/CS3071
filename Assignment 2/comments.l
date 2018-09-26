@@ -20,6 +20,11 @@
 
 \*\*.* {printf("%s", yytext);}
 
+\{(.|\n)*\} {printf("%s", yytext);}
+
+\{[^\{\}]*\} {}
+\n {}
+. {}
 
 %%
 /* User code */
