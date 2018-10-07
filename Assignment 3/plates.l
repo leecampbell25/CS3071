@@ -43,34 +43,41 @@ OLD_COUNTY C|CE|CN|CW|D|DL|G|KE|KK|KY|L|LK|LD|LH|LM|LS|MH|MN|MO|OY|RN|SO|TN|TS|W
 %%
 
  //(1)[3-8][1-2](\-){NEW_COUNTY}(\-)[1-9][0-9]{0-5}
-[\n|\s\ |  ]*[1][3-8][1-2][\-]{NEW_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s\ |  ]* {
+[\n|\s| |  ]*[1][3-8][1-2][\-]{NEW_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s| |  ]* {
 
   int year = yytext[1] - '0';
   int yearsOld = 8-year;
   printf("%d\n", yearsOld);
 }
 
-[\n|\s\ |  ]*[0-9][0-9][\-]{OLD_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s\ |  ]* {
+[\n|\s| |	]*[0-9][0-9][\-]{OLD_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s| |	]* {
 
   int decade = yytext[0] - '0';
+  //printf("Decade char %d\n", decade);
   decade = decade*10;
+  //printf("Decade Cal %d\n", decade);
   int year = yytext[1] - '0';
+  //printf("year char %d\n", decade);
   year = year + decade;
+  //printf("Years %d\n", year);
   int yearsOld =0;
 
   if (year > 86)
   {
-    yearsOld = 118 - year;
+    yearsOld = 100 - year;
+    yearsOld += 18;
   }
+
   else
   {
-    yearsOld = 18-year;
+    yearsOld = 0;
+    yearsOld = 18 - year;
   }
 
   printf("%d\n", yearsOld);
 }
 
-. {printf("syntax error\n");}
+[\n|\s| |	]*.*[\n|\s| |	]* {printf("INVALID\n");}
 
 %%
 /* User code */
