@@ -27,32 +27,29 @@ as codemark regards non zero exit status as an error.
 Lee Campbell - JS Integrated Computer Science 2018
 campbel2@tcd.ie
 27/09/18
+
  */
 
 /* Defintions */
 %{
-    char code [1000];
+
 %}
+
+NEW_COUNTY C|CE|CN|CW|D|DL|G|KE|KK|KY|L|LD|LH|LM|LS|MH|MN|MO|OY|RN|SO|T|W|WH|WX|WW
+
 
 /* Rules */
 %%
-\"[^\"]*\" {strcat(code, yytext);}
-\*\*.* {}
-\{[^\}]*\} {}
-\{[^\}]* {printf("syntax error\n");}
 
-\[^\{]*\} {strcat(code,"syntax error\n"); return 0;}
+ //(1)[3-8][1-2](\-){NEW_COUNTY}(\-)[1-9][0-9]{0-5}
+[1][3-8][1-2][\-]{NEW_COUNTY} {printf("syntax error\n");}
 
-\} {strcat(code,"syntax error\n"); return 0;}
-
-\n {strcat(code, yytext);}
-. {strcat(code, yytext);}
+. {}
 
 %%
 /* User code */
 int main()
 {
   yylex();
-  printf("%s", code);
 	return 0;
 }
