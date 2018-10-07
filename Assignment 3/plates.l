@@ -36,15 +36,41 @@ campbel2@tcd.ie
 %}
 
 NEW_COUNTY C|CE|CN|CW|D|DL|G|KE|KK|KY|L|LD|LH|LM|LS|MH|MN|MO|OY|RN|SO|T|W|WH|WX|WW
+OLD_COUNTY C|CE|CN|CW|D|DL|G|KE|KK|KY|L|LK|LD|LH|LM|LS|MH|MN|MO|OY|RN|SO|TN|TS|W|WD|WH|WX|WW
 
 
 /* Rules */
 %%
 
  //(1)[3-8][1-2](\-){NEW_COUNTY}(\-)[1-9][0-9]{0-5}
-[1][3-8][1-2][\-]{NEW_COUNTY} {printf("syntax error\n");}
+[\n|\s\ |  ]*[1][3-8][1-2][\-]{NEW_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s\ |  ]* {
 
-. {}
+  int year = yytext[1] - '0';
+  int yearsOld = 8-year;
+  printf("%d\n", yearsOld);
+}
+
+[\n|\s\ |  ]*[0-9][0-9][\-]{OLD_COUNTY}[\-][1-9][0-9]{0,5}[\n|\s\ |  ]* {
+
+  int decade = yytext[0] - '0';
+  decade = decade*10;
+  int year = yytext[1] - '0';
+  year = year + decade;
+  int yearsOld =0;
+
+  if (year > 86)
+  {
+    yearsOld = 118 - year;
+  }
+  else
+  {
+    yearsOld = 18-year;
+  }
+
+  printf("%d\n", yearsOld);
+}
+
+. {printf("syntax error\n");}
 
 %%
 /* User code */
