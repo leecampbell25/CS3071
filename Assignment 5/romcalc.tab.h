@@ -67,7 +67,13 @@
      DCCC = 283,
      CM = 284,
      M = 285,
-     EOL = 286
+     ADD = 286,
+     SUB = 287,
+     MUL = 288,
+     DIV = 289,
+     LP = 290,
+     RP = 291,
+     EOL = 292
    };
 #endif
 /* Tokens.  */
@@ -99,7 +105,13 @@
 #define DCCC 283
 #define CM 284
 #define M 285
-#define EOL 286
+#define ADD 286
+#define SUB 287
+#define MUL 288
+#define DIV 289
+#define LP 290
+#define RP 291
+#define EOL 292
 
 
 

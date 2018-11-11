@@ -1,7 +1,7 @@
 %option noyywrap
 
 %{
-# include "roman.tab.h"
+# include "romcalc.tab.h"
 void yyerror(char *s);
 %}
 
@@ -35,7 +35,15 @@ void yyerror(char *s);
 "DCCC" {yylval = 800;return DCCC;}
 "CM" {yylval = 900;return CM;}
 "M" {yylval = 1000;return M;}
-\n {return EOL;}
 
-. {yyerror("syntax error\n");}
+
+"*" {return MUL;}
+"/"	{return DIV;}
+"+"	{return ADD;}
+"-"	{return SUB;}
+"{" {return LP;}
+"}"	{return RP;}
+
+\n {return EOL;}
+. {yyerror("syntax error");}
 %%
